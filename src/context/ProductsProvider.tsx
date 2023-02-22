@@ -6,8 +6,7 @@ export type ProductType = {
   price: number;
 };
 
-const initState: ProductType[] = []
-
+const initState: ProductType[] = [];
 
 // const initState: ProductType[] = [
 //   {
@@ -40,15 +39,19 @@ export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
 
   useEffect(() => {
     const fetchProducts = async (): Promise<ProductType[]> => {
-      const data = await fetch('http://localhost:3500').then(res => {return res.json()}).catch(err => {
-        if (err instanceof Error) console.log(err.message)
-      })
+      const data = await fetch("http://localhost:3500")
+        .then((res) => {
+          return res.json();
+        })
+        .catch((err) => {
+          if (err instanceof Error) console.log(err.message);
+        });
 
-      return data      
-    }
+      return data;
+    };
 
-    fetchProducts().then(products => setProducts(products))
-  },[])
+    fetchProducts().then((products) => setProducts(products));
+  }, []);
 
   return (
     <ProductContext.Provider value={{ products }}>
@@ -56,5 +59,5 @@ export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
     </ProductContext.Provider>
   );
 };
- 
+
 export default ProductContext;
